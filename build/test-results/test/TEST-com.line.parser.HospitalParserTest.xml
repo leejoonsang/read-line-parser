@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.line.parser.HospitalParserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-10-13T04:20:17" hostname="Sangjoonui-MacBookPro.local" time="0.019">
+<testsuite name="com.line.parser.HospitalParserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-10-13T06:48:19" hostname="Sangjoonui-MacBookPro.local" time="0.011">
   <properties/>
-  <testcase name="hospital parse well done" classname="com.line.parser.HospitalParserTest" time="0.019"/>
+  <testcase name="sqlInsertQuery well done" classname="com.line.parser.HospitalParserTest" time="0.011"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
