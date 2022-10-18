@@ -1,22 +1,22 @@
 package com.dbexercise;
 
+import com.domain.User;
+
 import java.sql.*;
 import java.util.Map;
 
 public class UserDao {
 
-    private Connection makeConnection() throws SQLException {
-        Map<String, String> env = System.getenv();
-        // DB 연동
-        Connection conn = DriverManager.getConnection(env.get("DB_HOST"),
-                env.get("DB_USER"), env.get("DB_PASSWORD"));
-        return conn;
+    private AWSConnectionMaker awsConnectionMaker;
+
+    public UserDao(){
+        this.awsConnectionMaker = new AWSConnectionMaker();
     }
 
     public void add(User user){
         Map<String, String> env = System.getenv();
         try{
-            Connection conn = makeConnection();
+            Connection conn = awsConnectionMaker.makeConnection();
             // Query 문 작성
             PreparedStatement pstmt =
                     conn.prepareStatement("INSERT INTO users(id, name, password) values (?, ?, ?)");
@@ -37,7 +37,7 @@ public class UserDao {
     public User selectById(String id){
         Map<String, String> env = System.getenv();
         try{
-            Connection conn = makeConnection();
+            Connection conn = awsConnectionMaker.makeConnection();
             // Query 문 작성
             PreparedStatement pstmt = conn.prepareStatement(
                     "SELECT * FROM users where id = ?");
