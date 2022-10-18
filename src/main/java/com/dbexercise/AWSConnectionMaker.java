@@ -5,7 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Map;
 
-public class AWSConnectionMaker {
+public class AWSConnectionMaker implements ConnectionMaker{
+    @Override
     public Connection makeConnection() throws SQLException {
         Map<String, String> env = System.getenv();
         // DB 연동
