@@ -1,22 +1,28 @@
-package com.line;
+package com.dbexercise;
 
 import java.sql.*;
 import java.util.Map;
 
 public class UserDao {
 
-    public void add(){
+    private Connection makeConnection() throws SQLException {
+        Map<String, String> env = System.getenv();
+        // DB 연동
+        Connection conn = DriverManager.getConnection(env.get("DB_HOST"),
+                env.get("DB_USER"), env.get("DB_PASSWORD"));
+        return conn;
+    }
+
+    public void add(User user){
         Map<String, String> env = System.getenv();
         try{
-            // DB 연동
-            Connection conn = DriverManager.getConnection(env.get("DB_HOST"),
-                    env.get("DB_USER"), env.get("DB_PASSWORD"));
-            // Query문 작성
+            Connection conn = makeConnection();
+            // Query 문 작성
             PreparedStatement pstmt =
                     conn.prepareStatement("INSERT INTO users(id, name, password) values (?, ?, ?)");
-            pstmt.setString(1, "2");
-            pstmt.setString(2, "asdf");
-            pstmt.setString(3, "0000");
+            pstmt.setString(1, user.getId());
+            pstmt.setString(2, user.getName());
+            pstmt.setString(3, user.getPassword());
 
             pstmt.executeUpdate();
 
@@ -31,15 +37,13 @@ public class UserDao {
     public User selectById(String id){
         Map<String, String> env = System.getenv();
         try{
-            // DB 연동
-            Connection conn = DriverManager.getConnection(env.get("DB_HOST"),
-                    env.get("DB_USER"), env.get("DB_PASSWORD"));
-            // Query문 작성
+            Connection conn = makeConnection();
+            // Query 문 작성
             PreparedStatement pstmt = conn.prepareStatement(
                     "SELECT * FROM users where id = ?");
             pstmt.setString(1, id);
 
-            // Query문 실행
+            // Query 문 실행
             ResultSet rs = pstmt.executeQuery();
             rs.next();
             User user = new User(rs.getString("id"),
@@ -59,8 +63,8 @@ public class UserDao {
 
     public static void main(String[] args) {
         UserDao userDao = new UserDao();
-        userDao.add();
-        User user = userDao.selectById("2");
+        userDao.add(new User("9", "mark9", "12341234"));
+        User user = userDao.selectById("9");
         System.out.println(user.getName());
     }
 }
