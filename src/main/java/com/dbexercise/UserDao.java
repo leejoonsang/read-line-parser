@@ -7,16 +7,20 @@ import java.util.Map;
 
 public class UserDao {
 
-    private AWSConnectionMaker awsConnectionMaker;
+    private ConnectionMaker connectionMaker;
 
     public UserDao(){
-        this.awsConnectionMaker = new AWSConnectionMaker();
+        this.connectionMaker = new AWSConnectionMaker();
+    }
+
+    public UserDao(ConnectionMaker connectionMaker){
+        this.connectionMaker = connectionMaker;
     }
 
     public void add(User user){
         Map<String, String> env = System.getenv();
         try{
-            Connection conn = awsConnectionMaker.makeConnection();
+            Connection conn = connectionMaker.makeConnection();
             // Query 문 작성
             PreparedStatement pstmt =
                     conn.prepareStatement("INSERT INTO users(id, name, password) values (?, ?, ?)");
@@ -37,7 +41,7 @@ public class UserDao {
     public User selectById(String id){
         Map<String, String> env = System.getenv();
         try{
-            Connection conn = awsConnectionMaker.makeConnection();
+            Connection conn = connectionMaker.makeConnection();
             // Query 문 작성
             PreparedStatement pstmt = conn.prepareStatement(
                     "SELECT * FROM users where id = ?");
