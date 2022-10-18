@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Map;
 
+// abstract 클래스를 상속받아 Connection 수행
 public class AWSUserDaoImpl extends UserDaoAbstract{
     public Connection makeConnection() throws SQLException {
         Map<String, String> env = System.getenv();
