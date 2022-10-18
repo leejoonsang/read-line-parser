@@ -1,21 +1,21 @@
 package com.dbexercise;
 
+import com.domain.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class UserDaoTest {
     @Test
     @DisplayName("Test Passed")
     void addAndSelect(){
-        UserDao userDao = new UserDao();
-        User user = new User("6", "mark6", "zxcv");
+        AWSUserDaoImpl userDao = new AWSUserDaoImpl();
+        String id = "11";
+        User user = new User(id, "mark11", "eleven");
         userDao.add(user);
 
-        User selectedUser =  userDao.selectById("6");
-        Assertions.assertEquals("mark6", selectedUser.getName());
+        User selectedUser =  userDao.selectById(id);
+        Assertions.assertEquals("mark11", selectedUser.getName());
     }
 
 }
