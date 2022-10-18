@@ -5,6 +5,8 @@ import com.domain.User;
 import java.sql.*;
 import java.util.Map;
 
+// AWS 혹은 local로 구분해서 수행하고 싶을 때
+// abstract 클래스 생성 후, AWSUserDao/LocalUserDao 구분해서 extend
 public abstract class UserDaoAbstract {
 
     public abstract Connection makeConnection() throws SQLException;
@@ -50,12 +52,10 @@ public abstract class UserDaoAbstract {
             conn.close();
 
             return user;
-
         }catch (SQLException e){
             throw new RuntimeException();
         }
 
     }
-
 
 }
