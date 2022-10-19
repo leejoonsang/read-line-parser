@@ -9,13 +9,14 @@ class UserDaoTest {
     @Test
     @DisplayName("Test Passed")
     void addAndSelect(){
-        AWSUserDaoImpl userDao = new AWSUserDaoImpl();
-        String id = "11";
-        User user = new User(id, "mark11", "eleven");
+        UserDao userDao = new UserDaoFactory().awsUserDao();
+        String id = "16";
+        User user = new User(id, "mark16", "sixteen");
         userDao.add(user);
 
-        User selectedUser =  userDao.selectById(id);
-        Assertions.assertEquals("mark11", selectedUser.getName());
+        User selectedUser = userDao.selectById(id);
+        Assertions.assertEquals("mark16", selectedUser.getName());
+        Assertions.assertEquals("sixteen", selectedUser.getPassword());
     }
 
 }
